@@ -8,5 +8,22 @@ uint32_t ip_to_number(int a, int b, int c, int d)
        ((uint32_t)b << 16) |
        ((uint32_t)c << 8)  |
        (uint32_t)d;
-
+}
+// Вывод IP-адреса в классическом формате
+void print_ip(uint32_t ip)
+{
+    printf("%u.%u.%u.%u",
+           (ip >> 24) & 255,
+           (ip >> 16) & 255,
+           (ip >> 8) & 255,
+           ip & 255);
+}
+int main()
+{
+    uint32_t ip = ip_to_number(192, 168, 21, 1);
+    printf("Числовой формат: %u\n", ip);
+    printf("Обычный формат: ");
+    print_ip(ip);
+    printf("\n");
+    return 0;
 }
