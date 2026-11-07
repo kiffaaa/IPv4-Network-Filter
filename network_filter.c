@@ -120,6 +120,26 @@ int is_frequent_ip(uint32_t ip)
     }
     return 0;
 }
+// Основная функция фильтрации IP
+int filter_ip(uint32_t ip)
+{
+    if (is_frequent_ip(ip))
+    {
+        return 403;
+    }
+    else if (is_black_ip(ip))
+    {
+        return 403;
+    }
+    else if (is_white_ip(ip))
+    {
+        return 200;
+    }
+    else
+    {
+        return 403;
+    }
+}
 int main()
 {
     uint32_t ip = ip_to_number(255, 255, 255, 128);
