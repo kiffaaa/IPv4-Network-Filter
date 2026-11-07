@@ -66,7 +66,26 @@ int is_white_ip(uint32_t ip)
         return 1;
     }
     return 0;
-
+}
+//чёрный список IP-адресов
+int is_black_ip(uint32_t ip)
+{
+    static uint32_t black_list[255] = {0};
+    uint32_t *ptr = black_list;
+    uint32_t *end = black_list + 255;
+    while (ptr < end)
+    {
+        if (*ptr == ip && *ptr != 0)
+        {
+            return 1;
+        }
+        ptr++;
+    }
+    if (ip == 1775698303)
+    {
+        return 1;
+    }
+    return 0;
 }
 int main()
 {
