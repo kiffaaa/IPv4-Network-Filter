@@ -87,6 +87,39 @@ int is_black_ip(uint32_t ip)
     }
     return 0;
 }
+// Проверка частоты запросов от одного IP
+int is_frequent_ip(uint32_t ip)
+{
+    static uint32_t request_history[10] = {0};
+    static int request_count = 0, position = 0;
+    uint32_t *ptr = request_history;
+    *(ptr + position) = ip;
+    position++;
+    if (position == 10)
+    {
+        position = 0;
+    }
+    if (request_count < 10)
+    {
+        request_count++;
+    }
+    int repeat_count = 0;
+    uint32_t *check = request_history;
+    uint32_t *end = request_history + request_count;
+    while (check < end)
+    {
+        if (*check == ip)
+        {
+            repeat_count++;
+        }
+        check++;
+    }
+    if (repeat_count >= 3)
+    {
+        return 1;
+    }
+    return 0;
+}
 int main()
 {
     uint32_t ip = ip_to_number(255, 255, 255, 128);
