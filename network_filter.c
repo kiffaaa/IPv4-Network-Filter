@@ -124,17 +124,19 @@ int is_frequent_ip(uint32_t ip)
 uint32_t input_ip()
 {
     int a, b, c, d, valid = 0;
+    char x;
+
     while (valid == 0)
     {
         printf("Введите IP-адрес: ");
 
-        if (scanf("%d.%d.%d.%d", &a, &b, &c, &d) != 4)
+        if (scanf("%d.%d.%d.%d%c", &a, &b, &c, &d, &x) != 5 || x != '\n')
         {
             printf("Ошибка! Неверный формат IP-адреса.\n");
             while (getchar() != '\n');
         }
         else if (a < 0 || a > 255 || b < 0 || b > 255 ||
-                c < 0 || c > 255 || d < 0 || d > 255)
+                 c < 0 || c > 255 || d < 0 || d > 255)
         {
             printf("Ошибка! Каждый октет должен быть от 0 до 255.\n");
             while (getchar() != '\n');
@@ -144,6 +146,7 @@ uint32_t input_ip()
             valid = 1;
         }
     }
+
     return ip_to_number(a, b, c, d);
 }
 // Основная функция фильтрации IP
@@ -168,10 +171,29 @@ int filter_ip(uint32_t ip)
 }
 int main()
 {
-    uint32_t ip = ip_to_number(255, 255, 255, 128);
-    printf("Числовой формат: %u\n", ip);
-    printf("Обычный формат: ");
-    print_ip(ip);
-    printf("\n");
+    printf("15.27Д-ИБ03/24б Никифорова К.А.\n");
+    uint32_t ip;
+    int status; // 403 или 200
+    while (1)
+    {
+        ip = input_ip();
+        if (ip == 0)
+        {
+            break;
+        }
+        status = filter_ip(ip);
+        printf("IP-адрес: ");
+        print_ip(ip);
+        printf("\n");
+
+        if (status == 200)
+        {
+            printf("Статус доступа: 200\n\n");
+        }
+        else
+        {
+            printf("Статус доступа: 403\n\n");
+        }
+    }
     return 0;
 }
