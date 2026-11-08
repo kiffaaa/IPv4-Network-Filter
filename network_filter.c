@@ -120,26 +120,6 @@ int is_frequent_ip(uint32_t ip)
     }
     return 0;
 }
-// Основная функция фильтрации IP
-int filter_ip(uint32_t ip)
-{
-    if (is_frequent_ip(ip))
-    {
-        return 403;
-    }
-    else if (is_black_ip(ip))
-    {
-        return 403;
-    }
-    else if (is_white_ip(ip))
-    {
-        return 200;
-    }
-    else
-    {
-        return 403;
-    }
-}
 // Ввод IP-адреса пользователем
 uint32_t input_ip()
 {
@@ -165,6 +145,26 @@ uint32_t input_ip()
         }
     }
     return ip_to_number(a, b, c, d);
+}
+// Основная функция фильтрации IP
+int filter_ip(uint32_t ip)
+{
+    if (is_frequent_ip(ip))
+    {
+        return 403;
+    }
+    else if (is_black_ip(ip))
+    {
+        return 403;
+    }
+    else if (is_white_ip(ip))
+    {
+        return 200;
+    }
+    else
+    {
+        return 403;
+    }
 }
 int main()
 {
