@@ -140,6 +140,32 @@ int filter_ip(uint32_t ip)
         return 403;
     }
 }
+// Ввод IP-адреса пользователем
+uint32_t input_ip()
+{
+    int a, b, c, d, valid = 0;
+    while (valid == 0)
+    {
+        printf("Введите IP-адрес: ");
+
+        if (scanf("%d.%d.%d.%d", &a, &b, &c, &d) != 4)
+        {
+            printf("Ошибка! Неверный формат IP-адреса.\n");
+            while (getchar() != '\n');
+        }
+        else if (a < 0 || a > 255 || b < 0 || b > 255 ||
+                c < 0 || c > 255 || d < 0 || d > 255)
+        {
+            printf("Ошибка! Каждый октет должен быть от 0 до 255.\n");
+            while (getchar() != '\n');
+        }
+        else
+        {
+            valid = 1;
+        }
+    }
+    return ip_to_number(a, b, c, d);
+}
 int main()
 {
     uint32_t ip = ip_to_number(255, 255, 255, 128);
